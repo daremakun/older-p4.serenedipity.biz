@@ -10,18 +10,15 @@ class users_controller extends base_controller {
 
     } # End of Method
         /*-------------------------------------------------------------------------------------------------
-      Error Handling
+      Show form and Error Handling
         -------------------------------------------------------------------------------------------------*/
-    public function signup($error = NULL) {
+    public function signup {
 
-        # Setup view
+        / Set up the view
         $this->template->content = View::instance('v_users_signup');
         $this->template->title = "Sign Up";
 
-        # Pass data to the view
-        $this->template->content->error = $error;
-
-        # Render template
+        // Render the view
         echo $this->template;
 
     } # End of Method
@@ -29,59 +26,37 @@ class users_controller extends base_controller {
         Validate that the user has entered a valid login name
         -------------------------------------------------------------------------------------------------*/
     public function p_signup() {
-
+  
+        // Dump out the results of POST to see what the form submitted
         
-        $at_sign = strpos($_POST['email'], '@');
 
-        # Error code 1 indicates invalid login name
-        if($at_sign === false) {
-            Router::redirect('/users/signup/1');
-        }
-
-        ## if the email has already been created, then alert the person signing up
-        $email = $_POST['email'];
-        $q = "SELECT created FROM users WHERE email = '".$email."'";
-        $emailexists = DB::instance(DB_NAME)->select_field($q);
-
-        # Error code 2 indicates that user already exists
-        if(isset($emailexists)){
-            Router::redirect('/users/signup/2');
-        }
-
-        ## Ensure that the user has entered a first name
-
-        # Error code 3 indicates that user needs a first name
-        if(strlen($_POST['first_name'])<1){
-            Router::redirect('/users/signup/3');
-        }
-
-        ## Ensure password is greater than 5 characters
-        # Error code 4 indicates that password is too short
-        if(strlen($_POST['password'])<6) {
-            Router::redirect('/users/signup/4');
-        }
-
-        # Give user the default avatar and profile photo
-        $_POST['avatar'] = "sample.jpg";
-        $_POST['photo'] = "p_sample.jpg";
-
-
-        # Store time stamp data from user
+        // Store time user was created to DB
         $_POST['created'] = Time::now();
         $_POST['modified'] = Time::now();
-
-        # Encrypt the password
+      
+        // Encrypt the password
         $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
 
-        # Create an encrypted token via their email address and a random string
+        // Create an encrypted token via their email address and a random string
         $_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
 
-        # Insert this user into the database
+        // Insert this user into the database
         $user_id = DB::instance(DB_NAME)->insert('users', $_POST);
 
-        # Redirect to the login page, and inform them that they have signed up
-        # Currently using $error = 2 as the indication that they have signed up
-        Router::redirect('/users/login/2');
+        //Image Upload
+        Upload::upload($_FILES, "/uploads/avatars/", array("JPG", "JPEG", "jpg", "jpeg", "gif", "GIF", "png", "PNG"), $user_id);
+        
+        $filename = $_FILES['avatar']['name']; // original filename (i.e. picture.jpg)
+        $extension = substr($filename, strrpos($filename, '.')); // filename format extension (i.e. .jpg)
+        $avatar = $user_id.$extension; // user id + .jpg or .png or .gif (i.e. 26.png)
+
+        // Add Image to DB in "avatar" column
+        $data = Array("avatar" => $avatar);
+        DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = '".$user_id."'");
+
+
+        // Send them back to the login page with a success message
+        Router::redirect("/users/login/?success=true");
 
     } # End of Method
         /*-------------------------------------------------------------------------------------------------

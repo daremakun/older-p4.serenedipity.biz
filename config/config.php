@@ -14,11 +14,12 @@ If you want a different default time format for this app, set it below
 */
 
 # What is the name of this app?
-	define('APP_NAME', 'Serenedipity');  
+	define('APP_NAME', 'Serenedipity'); 
+	define('APP_TAGLINE', 'Share your life adventures'); 
 
 # When email is sent out from the server, where should it come from?
 # Ideally, this should match the domain name
-	define('APP_EMAIL', 'daremakun@fas.harvard.edu'); 
+	define('APP_EMAIL', 'dremak11@gmail.com'); 
 
 /* 
 A email designated to receive messages from the server. Examples:
@@ -35,6 +36,13 @@ A email designated to receive messages from the server. Examples:
 
 # Timezone
 	define('TIMEZONE', 'America/New_York');
+
+# Image / Avatar settings
+    define('AVATAR_PATH', "/uploads/avatars/");
+    define('SMALL_W', 300);
+    define('SMALL_H', 300);
+    define('PLACE_HOLDER_IMAGE', "/uploads/avatars/sample.jpg");
+
 
 # If your app is going to have outgoing emails, you should fill in your SMTP settings
 # For this you could use gmail SMTP or something like http://sendgrid.com/

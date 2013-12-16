@@ -80,7 +80,7 @@
 			<br>
 			<div class = "faded" >
 				Copyright © <?=APP_NAME?> is an application for <a href="http://www.extension.harvard.edu/courses/dynamic-web-applications">
-				Harvard Extension CSci E-15</a> /
+				Harvard Extension CSCI-E-15</a> /
 			</div>
 		</div>
 	</div>

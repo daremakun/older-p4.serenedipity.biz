@@ -1,40 +1,18 @@
 <h2>Sign Up</h2>
 
-<?php if(isset($error)): ?>
-<div class = 'error' >
-<?php
+<section class="content">
+        <h2>Sign Up</h2>
 
-    //Display different error codes for different login issues
-    switch($error) {
-        case 1: echo "Please enter a valid e-mail address";
-            break;
-        case 2: echo "E-mail address already exists!";
-            break;
-        case 3: echo "We at least need your first name!";
-            break;
-        case 4: echo "Password must be at least 5 characters";
-            break;
-        default: echo "Login issues. Try again!";
-            break;
-    }?>
-</div>
-<?php endif; ?>
+        <form method='POST' enctype="multipart/form-data" action='/users/p_signup'> <!-- Naming convention = /controller/post or method -->
 
-<form method='POST' action='/users/p_signup'>
+                <input type='file' name='avatar' value='file'><br />
 
-	Name<br>
-		<input type='text' name='first_name' placeholder="First">
-		<input type='text' name='last_name' placeholder="Last">
-	<br><br>
+                <input type='text' name='first_name' placeholder='First Name'><br />
+                <input type='text' name='last_name' placeholder='Last Name'><br />
+                <input type='text' name='email' placeholder="Email Address"><br /> <!-- Query database to be sure email doesn't already exist -->
+                <input type='password' name='password' placeholder='Password'><br />
 
-	Email<br>
-		<input type='text' name='email' placeholder="e-mail address">
-	<br><br>
+                <div class='button'><input type='Submit' value='Sign Up!'></div>
 
-	Password<br>
-		<input type='password' name='password' placeholder="password">
-	<br><br>
-
-	<input type='submit' value='Sign up'>
-
-</form>
+        </form>
+</section>

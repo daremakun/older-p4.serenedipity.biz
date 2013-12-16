@@ -40,7 +40,7 @@ class posts_controller extends base_controller {
 
     } # End of Method
         /*-------------------------------------------------------------------------------------------------
-         Build the query to only choose those posts from users that you're following
+         Build the query to only choose those posts from users you're following
         -------------------------------------------------------------------------------------------------*/
     public function following() {
 

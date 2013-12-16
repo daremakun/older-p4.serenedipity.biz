@@ -8,7 +8,7 @@
 
 </h2>
 
-	<?=APP_NAME?> is a micro-blog that allows you to make share your serendipitous adventures and follow your friends!
+	<?=APP_NAME?> is a micro-blog that allows you to share your serendipitous adventures and follow your friends!
 	<br><br>
 		You can:
 		<ul>

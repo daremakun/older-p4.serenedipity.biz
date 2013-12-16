@@ -1,10 +1,10 @@
-<div class="sereneload ">
+<div class="sereneload">
 		<?php if(!$user): ?>
 			<?php Router::redirect("/users/login"); ?>
 		<?php else: ?>
 	<h2>This is <?=$user->first_name?><?="&nbsp"?><?=$user->last_name?>'s profile.</h2>
 		<?php endif; ?>
-<br/>
+	<br/>
 		<?php if($user) echo $user->first_name;?>
 			<?php echo ' '; ?>
 		<?php if($user) echo $user->last_name; ?>
@@ -16,9 +16,9 @@
         		echo 'You have been a member since: ';
         		echo date('M d Y', $convert_time);
 		?>
-<br/>
+	<br/>
 	<hr/>
-<br/>
+	<br/>
 
 		<?php foreach($posts as $post): ?>
 			<article>
@@ -27,11 +27,13 @@
 				<?=Time::display($post['created'])?>
 			</time>                
     			</h4>
-<div>
-	<p><?=$post['content']?><br></p></div><a href='/posts/edit/<?=$post['post_id']; ?>' > <u>Edit this post</u></a>
+	<div>
+		<p><?=$post['content']?><br></p></div><a href='/posts/edit/<?=$post['post_id']; ?>' > <u>Edit this post</u></a>
 			</article>
-<br/>
+	<br/>
 		<?php endforeach; ?>
-<br/>
+	<br/>
 				<h3>Follow: <a href='/posts/users'>Other Posters</a></h3>
+	</div>
+	
 </div>
